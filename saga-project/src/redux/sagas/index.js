@@ -1,17 +1,21 @@
-import {put, takeEvery} from 'redux-saga/effects';
+import {put, takeEvery, call} from 'redux-saga/effects';
 
-async function getUsers() {
-   const request = await fetch('https://jsonplaceholder.typicode.com/users');
+async function getData(pattern) {
+   const request = await fetch(`https://jsonplaceholder.typicode.com/${pattern}`);
     return await request.json()
 }
 
 export function* workerSaga() {
-    const data = yield getUsers();
-    yield put({type: 'SET_USERS', payload: data})
+
+    // For best result use call() func with async function
+    const users = yield call(getData, 'users');
+    const todos = yield call(getData, 'todos');
+    yield put({type: 'SET_USERS', payload: users})
+    yield put({type: 'SET_TODOS', payload: todos})
 }
 
 export function* watchClickSaga() {
-    yield takeEvery("CLICK", workerSaga);
+    yield takeEvery('LOAD_DATA', workerSaga);
 }
 
 export default function*  rootSaga() {

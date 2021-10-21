@@ -8,7 +8,7 @@ function App() {
   console.log(store)
   return (
       <div className="App">
-        <button onClick={() => dispatch({type: "CLICK"})}>click me</button>
+        <button onClick={() => dispatch({type: 'LOAD_DATA'})}>click me</button>
       </div>
   );
 }

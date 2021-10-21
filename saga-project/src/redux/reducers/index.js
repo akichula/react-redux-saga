@@ -1,6 +1,7 @@
 
 const initialState = {
-    users: []
+    users: [],
+    todos: []
 }
 
 export default function reducer(state = initialState, action) {
@@ -8,8 +9,17 @@ export default function reducer(state = initialState, action) {
         case 'SET_USERS': {
             return {
                 ...state,
-                user: [
+                users: [
                     ...state.users,
+                    ...action.payload
+                ]
+            }
+        }
+        case 'SET_TODOS': {
+            return {
+                ...state,
+                todos: [
+                    ...state.todos,
                     ...action.payload
                 ]
             }
